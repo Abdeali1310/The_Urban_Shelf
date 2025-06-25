@@ -1,23 +1,37 @@
-import { useTheme } from "@/hooks/useTheme";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Sun, Moon } from "lucide-react";
 import { motion } from "framer-motion";
+import React, { useRef, useState } from "react";
+import { useTheme } from "@/hooks/useTheme";
 
-const LandingPage = () => {
+const LandingPage = React.memo(() => {
   const { theme, toggleTheme } = useTheme();
-
+  const [isZooming, setIsZooming] = useState(false);
+  const navigate = useNavigate();
   const elements = [
-    { title: "Aero Max", imageSrc: "/images/sneakers/aeromax.png" },
+    { title: "Aero Max", imageSrc: "/images/shoes/aeromax.png" },
     { title: "Dé Lemaire", imageSrc: "/images/watches/Dé Lemaire.png" },
     { title: "La Flappe", imageSrc: "/images/bags/La Flappe.png" },
-    { title: "Velisse", imageSrc: "/images/sneakers/Valisse.png" },
+    { title: "Velisse", imageSrc: "/images/heels/Valisse.png" },
   ];
 
-  const item = elements[Math.floor(Math.random() * elements.length)];
-
+  const itemRef = useRef(elements[Math.floor(Math.random() * elements.length)]);
+  const item = itemRef.current;
+  
+  const handleExplore = () => {
+    document.body.style.overflow = "hidden";
+    setIsZooming(true)
+    setTimeout(() => {
+      navigate("/explore");
+      setIsZooming(false);
+    }, 400);
+  };
   return (
-    <div
-      className={`min-h-screen transition-colors duration-300 ${
+    <motion.div
+      initial={{ scale: 1 }}
+      animate={{ scale: isZooming ? 2 : 1 }}
+      transition={{ duration: 0.5 }}
+      className={`min-h-screen transition-colors duration-300 overflow-x-hidden overflow-y-hidden ${
         theme === "light"
           ? "bg-[#FFFFF0] text-black"
           : "bg-black text-[#FFFFF0]"
@@ -25,16 +39,13 @@ const LandingPage = () => {
     >
       {/* Navbar */}
       <nav className="flex h-[7vh] justify-between px-7 lg:px-44 items-center">
-        <Link
-          to="/"
-          className="text-zinc-400 hover:text-zinc-500 duration-200"
-        >
+        <Link to="/" className="text-zinc-400 hover:text-zinc-500 duration-200">
           <h4 className="font-montserrat font-bold tracking-wider text-xl">
             Carté
           </h4>
         </Link>
 
-        <button onClick={toggleTheme}>
+        <button onClick={toggleTheme} className="hover:cursor-pointer">
           {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
         </button>
       </nav>
@@ -61,9 +72,8 @@ const LandingPage = () => {
         {/* Explore Button */}
       </div>
       <div className="w-screen flex justify-center items-center">
-
-        <Link
-          to="/explore"
+        <button
+          onClick={handleExplore}
           className={`text-center bottom-10 lg:mt-10 z-20 px-6 py-2 rounded-full border transition-all duration-300 font-medium tracking-wide ${
             theme === "light"
               ? "border-zinc-800 text-zinc-800 hover:bg-zinc-800 hover:text-white"
@@ -71,10 +81,10 @@ const LandingPage = () => {
           }`}
         >
           Explore
-        </Link>
+        </button>
       </div>
-    </div>
+    </motion.div>
   );
-};
+});
 
 export default LandingPage;
