@@ -70,6 +70,10 @@
   background-clip: padding-box;
 }
 
+button{
+  cursor: pointer;
+}
+
 .my-masonry-grid_column > div {
   margin-bottom: 16px;
 }
