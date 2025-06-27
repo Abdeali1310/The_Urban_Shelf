@@ -8,6 +8,8 @@ import { RxArrowTopRight } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "@/redux/Slices/cartSlice";
 import type { RootState } from "@/redux/store";
+import { GoArrowLeft } from "react-icons/go";
+import Loader from "@/helper/Loader";
 
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -53,7 +55,7 @@ const ProductDetails = () => {
 
   return product ? (
     <div
-      className={`min-h-screen w-full ${
+      className={`min-h-screen relative w-full ${
         theme === "light"
           ? "bg-[#FFFFF0] text-black"
           : "bg-black text-[#FFFFF0]"
@@ -64,6 +66,9 @@ const ProductDetails = () => {
       </div>
 
       <div className="flex items-center mt-12 md:mt-0 justify-center min-h-[calc(100vh-4rem)] px-4">
+        <button className="absolute top-15 left-5" onClick={() => navigate(-1)}>
+          <GoArrowLeft />
+        </button>
         <div className="relative flex flex-col md:flex-row gap-12 items-center max-w-6xl w-full">
           <div className="relative w-full md:w-1/2 flex items-start justify-center">
             <img
@@ -124,8 +129,14 @@ const ProductDetails = () => {
       </div>
     </div>
   ) : (
-    <div className="w-full min-h-screen flex items-center justify-center text-xl font-medium">
-      Loading...
+    <div
+      className={`w-full min-h-screen ${
+        theme === "light"
+          ? "bg-[#FFFFF0] text-black hover:bg-zinc-800"
+          : "bg-black text-white hover:bg-zinc-300"
+      } flex items-center justify-center text-xl font-medium`}
+    >
+      <Loader />
     </div>
   );
 };

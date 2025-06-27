@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useTheme } from "@/hooks/useTheme";
 import {
   clearCart,
@@ -16,7 +17,6 @@ const Cart = () => {
   const dispatch = useDispatch();
   const { theme } = useTheme();
   const navigate = useNavigate();
-  const shipping = 1.2;
   return cart.items.length > 0 ? (
     <div
       className={`min-h-screen relative py-10 px-4 md:px-10 ${
@@ -32,14 +32,14 @@ const Cart = () => {
       </button>
 
       <div
-        className={`min-h-screen px-4 py-8 ${
+        className={` px-4 py-8 ${
           theme === "light" ? "bg-[#FFFFF0] text-black" : "bg-black text-white"
         }`}
       >
-        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12">
-          <div className="w-full lg:w-2/3 flex flex-col gap-6">
+        <div className="max-w-7xl mx-auto  flex flex-col items-start justify-center lg:flex-row gap-12">
+          <div className="w-full lg:w-2/3  flex  flex-col gap-6">
             <table className="hidden lg:table w-full ">
-              <thead className="h-16 text-left border-b">
+              <thead className="h-16 text-center border-b">
                 <tr>
                   <th>Product</th>
                   <th>Price</th>
@@ -56,11 +56,11 @@ const Cart = () => {
                     }`}
                   >
                     <td className="py-4">
-                      <div className="flex items-center gap-4">
+                      <div className="flex justify-center items-center gap-4">
                         <img
                           src={item.imageSrc}
                           alt={item.title}
-                          className="w-20 h-20 object-contain"
+                          className="w-24 h-24 object-contain"
                         />
                         <div>
                           <h2 className="font-semibold text-lg">
@@ -70,9 +70,9 @@ const Cart = () => {
                         </div>
                       </div>
                     </td>
-                    <td>₹{item.price}K</td>
+                    <td className="text-center">₹{item.price}K</td>
                     <td>
-                      <div className="qty flex gap-3 justify-start items-center">
+                      <div className="qty flex gap-3 justify-center items-center">
                         <button
                           className="text-xl px-2"
                           onClick={() =>
@@ -92,7 +92,9 @@ const Cart = () => {
                         </button>
                       </div>
                     </td>
-                    <td>₹{(item.price * item.quantity).toFixed(2)}K</td>
+                    <td className="text-center">
+                      ₹{(item.price * item.quantity).toFixed(2)}K
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -104,7 +106,11 @@ const Cart = () => {
                 key={item.id}
                 className={`
                     flex flex-col md:flex-row gap-4 p-4 rounded-lg shadow-md
-                    ${theme === "dark" ? "border border-zinc-700 bg-zinc-900" : "border border-zinc-300 "} 
+                    ${
+                      theme === "dark"
+                        ? "border border-zinc-700 bg-zinc-900"
+                        : "border border-zinc-300 "
+                    } 
                     lg:hidden
                   `}
               >
@@ -121,7 +127,7 @@ const Cart = () => {
                   </div>
                 </div>
                 <div className="flex gap-4 justify-between items-center w-full md:w-1/3">
-                  <div className="qty flex gap-5 mt-3 items-center">
+                  <div className="qty flex gap-5 lg:mt-3 items-center">
                     <button
                       onClick={() =>
                         dispatch(decreaseQuantity({ id: item.id }))
@@ -151,24 +157,21 @@ const Cart = () => {
             ))}
           </div>
 
-          {/* Right: Order Summary */}
           <div
             className={`${
               theme === "dark" ? "border-zinc-700" : "border-zinc-300"
-            } border w-full lg:w-1/3 rounded-lg p-6 shadow-sm`}
+            } border w-full lg:w-1/3   rounded-lg p-6 shadow-sm`}
           >
             <h2 className="text-2xl font-bold mb-6">Order Summary</h2>
-            <div className="flex justify-between py-2 border-b">
-              <span>Subtotal</span>
-              <span>₹{cart.totalAmount.toFixed(2)}K</span>
+            <div className="flex justify-between text-lg mb-2">
+              <span>Total Items:</span>
+              <span>{cart.totalItems}</span>
             </div>
-            <div className="flex justify-between py-2 border-b">
-              <span>Shipping</span>
-              <span>{shipping}K</span>
-            </div>
+            
+
             <div className="flex justify-between py-4 text-lg font-semibold">
-              <span>Total</span>
-              <span>₹{(cart.totalAmount + shipping).toFixed(2)}K</span>
+              <span>Amount : </span>
+              <span>₹{cart.totalAmount.toFixed(2)}K</span>
             </div>
 
             <button
@@ -187,7 +190,6 @@ const Cart = () => {
             >
               Checkout <RxArrowTopRight className="text-lg" />
             </button>
-
           </div>
         </div>
       </div>

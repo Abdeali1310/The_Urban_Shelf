@@ -41,7 +41,7 @@ const LandingPage = React.memo(() => {
       <nav className="flex h-[7vh] justify-between px-7 lg:px-44 items-center">
         <Link to="/" className="text-zinc-400 hover:text-zinc-500 duration-200">
           <h4 className="font-montserrat font-bold tracking-wider text-xl">
-            Carté
+            Urban Shelf
           </h4>
         </Link>
 
