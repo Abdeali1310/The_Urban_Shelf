@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useState, type ReactNode } from "react";
+import { createContext, useMemo, useState, type ReactNode } from "react";
 
 export type ThemeContextType = {
     theme:string,
@@ -16,8 +16,10 @@ export const ThemeProvider = ({children}:{children:ReactNode})=>{
         localStorage.setItem("theme",theme === "light" ? "dark" : "light");
         setTheme(theme === "light" ? "dark" : "light");
     }
+    const value = useMemo(() => ({ theme, toggleTheme }), [theme]);
+
     return (
-        <ThemeContext.Provider value={{theme,toggleTheme}}>
+        <ThemeContext.Provider value={value}>
             {children}
         </ThemeContext.Provider>
     )

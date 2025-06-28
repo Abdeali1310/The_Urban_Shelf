@@ -12,11 +12,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { GoArrowLeft } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import { RxArrowTopRight } from "react-icons/rx";
-const Cart = () => {
+import React, { useCallback } from "react";
+const Cart = React.memo(() => {
   const cart = useSelector((state: RootState) => state.cart);
   const dispatch = useDispatch();
   const { theme } = useTheme();
   const navigate = useNavigate();
+
+  const handleIncrease = useCallback(
+    (id: string) => {
+      dispatch(increaseQuantity({ id }));
+    },
+    [dispatch]
+  );
+
+  const handleDecrease = useCallback(
+    (id: string) => {
+      dispatch(decreaseQuantity({ id }));
+    },
+    [dispatch]
+  );
   return cart.items.length > 0 ? (
     <div
       className={`min-h-screen relative py-10 px-4 md:px-10 ${
@@ -75,18 +90,14 @@ const Cart = () => {
                       <div className="qty flex gap-3 justify-center items-center">
                         <button
                           className="text-xl px-2"
-                          onClick={() =>
-                            dispatch(decreaseQuantity({ id: item.id }))
-                          }
+                          onClick={() => handleDecrease(item.id)}
                         >
                           -
                         </button>
                         <p>{item.quantity}</p>
                         <button
                           className="text-xl px-2"
-                          onClick={() =>
-                            dispatch(increaseQuantity({ id: item.id }))
-                          }
+                          onClick={() => handleIncrease(item.id)}
                         >
                           +
                         </button>
@@ -167,7 +178,6 @@ const Cart = () => {
               <span>Total Items:</span>
               <span>{cart.totalItems}</span>
             </div>
-            
 
             <div className="flex justify-between py-4 text-lg font-semibold">
               <span>Amount : </span>
@@ -209,6 +219,6 @@ const Cart = () => {
       <h2>Your Cart is empty!</h2>
     </div>
   );
-};
+});
 
 export default Cart;

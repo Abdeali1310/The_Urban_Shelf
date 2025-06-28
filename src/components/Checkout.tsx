@@ -4,11 +4,13 @@ import { GoArrowLeft } from "react-icons/go";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Form from "./Form";
-import { useState } from "react";
+import React, { useState } from "react";
 import { addOrder } from "@/redux/Slices/orderSlice";
 import { v4 as uuidv4 } from "uuid";
 import { clearCart } from "@/redux/Slices/cartSlice";
-const Checkout = () => {
+import { validateField } from "@/lib/validation";
+const Checkout = React.memo(() => {
+  const [isPaying, setIsPaying] = useState(false);
   const cart = useSelector((state: RootState) => state.cart);
   const { theme } = useTheme();
   const navigate = useNavigate();
@@ -23,30 +25,13 @@ const Checkout = () => {
   const dispatch = useDispatch();
   const handleValidation = (field: string): boolean => {
     const value = formData[field as keyof typeof formData];
-    let errorMsg = "";
-  
-    if (!value || value.trim() === "") {
-      errorMsg = `${field.replace(/^\w/, (c) => c.toUpperCase())} is required`;
-    }
-  
-    if (field === "email" && value) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(value)) {
-        errorMsg = "Invalid email format";
-      }
-    }
-  
-    if (field === "phone" && value) {
-      if (!/^\d{10}$/.test(value)) {
-        errorMsg = "Phone number must be 10 digits";
-      }
-    }
-  
+    const errorMsg = validateField(field as keyof typeof formData, value);
+
     setErrors((prev) => ({ ...prev, [field]: errorMsg }));
-  
+
     return errorMsg === ""; // ✅ true if no error
   };
-  
+
   const handlePayNow = () => {
     const fields = ["firstName", "lastName", "address", "email", "phone"];
     const allValid = fields.every((field) => handleValidation(field));
@@ -54,17 +39,21 @@ const Checkout = () => {
     if (!allValid) {
       return;
     }
-    const orderId = uuidv4();
+    setIsPaying(true);
+    setTimeout(() => {
+      const orderId = uuidv4();
 
-    const newOrder = {
-      id: orderId,
-      items: cart.items,
-      totalAmount: cart.totalAmount + 1.2,
-      date: new Date().toISOString(),
-    };
-    dispatch(addOrder(newOrder));
-    dispatch(clearCart());
-    navigate("/success");
+      const newOrder = {
+        id: orderId,
+        items: cart.items,
+        totalAmount: cart.totalAmount + 1.2,
+        date: new Date().toISOString(),
+      };
+      dispatch(addOrder(newOrder));
+      dispatch(clearCart());
+      setIsPaying(false);
+      navigate("/success");
+    }, 1000);
   };
   return cart.items.length > 0 ? (
     <div
@@ -119,13 +108,13 @@ const Checkout = () => {
 
           <button
             onClick={handlePayNow}
-            className={`w-full mt-6 py-2 rounded text-md font-semibold transition-colors duration-300 ${
+            className={`w-full mt-6 py-2 ${isPaying ? "opacity-50 cursor-not-allowed" : ""} rounded text-md font-semibold transition-colors duration-300 ${
               theme === "light"
                 ? "bg-black text-white hover:bg-zinc-800"
                 : "bg-zinc-100 text-black hover:bg-zinc-300"
             }`}
           >
-            Order now!
+            {isPaying ? "Processing..." : "Order now!"}
           </button>
         </div>
       </div>
@@ -145,6 +134,6 @@ const Checkout = () => {
       <h2>Your Cart is empty!</h2>
     </div>
   );
-};
+});
 
 export default Checkout;

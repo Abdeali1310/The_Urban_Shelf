@@ -1,6 +1,6 @@
 import products from "@/data/products";
 import type { ProductType } from "@/types";
-import { useEffect, useState } from "react";
+import React, {  useState, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import { useTheme } from "@/hooks/useTheme";
@@ -11,7 +11,7 @@ import type { RootState } from "@/redux/store";
 import { GoArrowLeft } from "react-icons/go";
 import Loader from "@/helper/Loader";
 
-const ProductDetails = () => {
+const ProductDetails = React.memo(() => {
   const { id } = useParams<{ id: string }>();
   const { theme } = useTheme();
   const navigate = useNavigate();
@@ -19,13 +19,10 @@ const ProductDetails = () => {
   const cart = useSelector((state: RootState) => state.cart);
 
   const [isAdded, setIsAdded] = useState(false);
-  const [product, setProduct] = useState<ProductType | null>(null);
   const productId = id ? parseInt(id) : null;
 
-  useEffect(() => {
-    const productItem = products.find((item) => item.id === productId);
-    if (productItem) setProduct(productItem);
-    return () => setProduct(null);
+  const product: ProductType | null = useMemo(() => {
+    return products.find((item) => item.id === productId) || null;
   }, [productId]);
 
   const handleCart = () => {
@@ -49,9 +46,10 @@ const ProductDetails = () => {
     navigate("/cart");
   };
 
-  const isInCart = product
-    ? cart.items.some((item) => item.id === product.id.toString())
-    : false;
+  const isInCart = useMemo(() => {
+    if (!product) return false;
+    return cart.items.some((item) => item.id === product.id.toString());
+  }, [cart.items, product]);
 
   return product ? (
     <div
@@ -139,6 +137,6 @@ const ProductDetails = () => {
       <Loader />
     </div>
   );
-};
+});
 
 export default ProductDetails;

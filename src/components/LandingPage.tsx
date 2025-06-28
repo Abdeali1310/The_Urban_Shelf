@@ -4,16 +4,16 @@ import { motion } from "framer-motion";
 import React, { useRef, useState } from "react";
 import { useTheme } from "@/hooks/useTheme";
 
+const elements = [
+  { title: "Aero Max", imageSrc: "/images/shoes/aeromax.png" },
+  { title: "Dé Lemaire", imageSrc: "/images/watches/Dé Lemaire.png" },
+  { title: "La Flappe", imageSrc: "/images/bags/La Flappe.png" },
+  { title: "Velisse", imageSrc: "/images/heels/Valisse.png" },
+];
 const LandingPage = React.memo(() => {
   const { theme, toggleTheme } = useTheme();
   const [isZooming, setIsZooming] = useState(false);
   const navigate = useNavigate();
-  const elements = [
-    { title: "Aero Max", imageSrc: "/images/shoes/aeromax.png" },
-    { title: "Dé Lemaire", imageSrc: "/images/watches/Dé Lemaire.png" },
-    { title: "La Flappe", imageSrc: "/images/bags/La Flappe.png" },
-    { title: "Velisse", imageSrc: "/images/heels/Valisse.png" },
-  ];
 
   const itemRef = useRef(elements[Math.floor(Math.random() * elements.length)]);
   const item = itemRef.current;
@@ -41,7 +41,7 @@ const LandingPage = React.memo(() => {
       <nav className="flex h-[7vh] justify-between px-7 lg:px-44 items-center">
         <Link to="/" className="text-zinc-400 hover:text-zinc-500 duration-200">
           <h4 className="font-montserrat font-bold tracking-wider text-xl">
-            Urban Shelf
+            Urban Vault
           </h4>
         </Link>
 

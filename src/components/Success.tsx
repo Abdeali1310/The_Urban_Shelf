@@ -1,10 +1,11 @@
 import { useTheme } from "@/hooks/useTheme";
 import type { RootState } from "@/redux/store";
+import React from "react";
 import { GoArrowLeft } from "react-icons/go";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
-const Success = () => {
+const Success = React.memo(() => {
   const navigate = useNavigate();
     const { theme } = useTheme();
   const orders = useSelector((state:RootState)=>state.orders)
@@ -36,6 +37,6 @@ const Success = () => {
   </button>
   <h2>Your Cart is empty!</h2>
 </div>
-};
+});
 
 export default Success;

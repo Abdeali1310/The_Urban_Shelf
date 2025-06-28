@@ -15,7 +15,7 @@ type Props = {
   handleValidation: (field: string) => void;
 };
 
-const Form: React.FC<Props> = ({
+const Form: React.FC<Props> = React.memo(({
   formData,
   setFormData,
   errors,
@@ -116,6 +116,6 @@ const Form: React.FC<Props> = ({
       </div>
     </div>
   );
-};
+});
 
 export default Form;

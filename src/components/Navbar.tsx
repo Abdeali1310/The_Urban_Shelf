@@ -1,13 +1,13 @@
 import { useTheme } from "@/hooks/useTheme";
 import type { RootState } from "@/redux/store";
 import { Moon, Sun } from "lucide-react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { HiMenu, HiX } from "react-icons/hi";
 import { PiNotebook } from "react-icons/pi";
-const Navbar = () => {
+const Navbar = React.memo(() => {
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const cart = useSelector((state: RootState) => state.cart);
@@ -21,7 +21,7 @@ const Navbar = () => {
     >
       <nav className="flex justify-between md:justify-around px-4 md:px-6 pr-8 h-14 items-center  w-screen">
         <div className="brand font-montserrat font-bold text-xl text-zinc-400">
-          <button onClick={() => navigate("/")}>Urban Shelf</button>
+          <button onClick={() => navigate("/")}>Urban Vault</button>
         </div>
         <div className="nav-links hidden md:flex font-medium ">
           <ul className="flex gap-8">
@@ -29,7 +29,11 @@ const Navbar = () => {
               <Link to={"/orders"}>Orders</Link>
             </li>
             <li>
-              <button onClick={handleCart} className="relative">
+              <button
+                aria-label="view cart"
+                onClick={handleCart}
+                className="relative"
+              >
                 <FaShoppingCart size={24} />
                 {cart.items.length > 0 && (
                   <div
@@ -43,7 +47,11 @@ const Navbar = () => {
               </button>
             </li>
             <li>
-              <button onClick={toggleTheme} className="hover:cursor-pointer">
+              <button
+                aria-label="toggle theme"
+                onClick={toggleTheme}
+                className="hover:cursor-pointer"
+              >
                 {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
               </button>
             </li>
@@ -53,14 +61,18 @@ const Navbar = () => {
         {/* for mobile */}
         <div className="relative md:hidden">
           <button
+            aria-label="open menu"
             className="focus:outline-none"
             onClick={() => setIsMobileView(true)}
           >
-            {!isMobileView && <HiMenu size={28} /> }
+            {!isMobileView && <HiMenu size={28} />}
           </button>
 
           {isMobileView && (
             <div
+              role="dialog"
+              aria-modal="true"
+              aria-label="Navigation Menu"
               className={`fixed top-0 right-0 h-screen ${
                 theme === "light"
                   ? "bg-white/30 backdrop-blur-md border border-white/20 text-black"
@@ -68,6 +80,7 @@ const Navbar = () => {
               }  w-64 z-50 shadow-lg  transition-all duration-300 px-6 py-8`}
             >
               <button
+                aria-label="Close Menu"
                 className="absolute top-4 right-4"
                 onClick={() => setIsMobileView(false)}
               >
@@ -77,9 +90,8 @@ const Navbar = () => {
                 <li>
                   <Link to="/orders" onClick={() => setIsMobileView(false)}>
                     <div className="flex gap-3">
-                    My Orders
-
-                    <PiNotebook size={28}/>
+                      My Orders
+                      <PiNotebook size={28} />
                     </div>
                   </Link>
                 </li>
@@ -92,8 +104,8 @@ const Navbar = () => {
                     className="relative"
                   >
                     <div className="flex gap-3">
-
-                    <div className="cart">Cart</div><FaShoppingCart size={24} />
+                      <div className="cart">Cart</div>
+                      <FaShoppingCart size={24} />
                     </div>
                     {cart.items.length > 0 && (
                       <div
@@ -114,8 +126,12 @@ const Navbar = () => {
                     }}
                   >
                     <div className="flex gap-3  items-center">
-
-                    <div className="switch">Switch</div>{theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
+                      <div className="switch">Switch</div>
+                      {theme === "light" ? (
+                        <Moon size={20} />
+                      ) : (
+                        <Sun size={20} />
+                      )}
                     </div>
                   </button>
                 </li>
@@ -126,6 +142,6 @@ const Navbar = () => {
       </nav>
     </div>
   );
-};
+});
 
 export default Navbar;

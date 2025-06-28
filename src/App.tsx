@@ -1,27 +1,87 @@
-import { Route, Routes } from "react-router-dom"
-import LandingPage from "./components/LandingPage"
-import Products from "./components/Products"
-import ProductDetails from "./components/ProductDetails"
-import Cart from "./components/Cart"
-import Checkout from "./components/Checkout"
-import Success from "./components/Success"
-import MyOrders from "./components/Myorders"
+import { Route, Routes } from "react-router-dom";
+import React, { Suspense } from "react";
+const NotFound = React.lazy(() => import("./helper/NotFound"));
+const LandingPage = React.lazy(() => import("./components/LandingPage"));
+const Products = React.lazy(() => import("./components/Products"));
+const ProductDetails = React.lazy(() => import("./components/ProductDetails"));
+const Cart = React.lazy(() => import("./components/Cart"));
+const Checkout = React.lazy(() => import("./components/Checkout"));
+const Success = React.lazy(() => import("./components/Success"));
+const MyOrders = React.lazy(() => import("./components/MyOrders"));
+const Loader = React.lazy(() => import("./helper/Loader"));
 
 const App = () => {
   return (
     <div className="h-screen w-full font-space-grotesk">
-      
       <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/explore" element={<Products />} />
-        <Route path="/products/:id" element={<ProductDetails />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/orders" element={<MyOrders />} />
-        <Route path="/success" element={<Success />} />
+        <Route
+          path="/"
+          element={
+            <Suspense fallback={<Loader />}>
+              <LandingPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/explore"
+          element={
+            <Suspense fallback={<Loader />}>
+              <Products />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/products/:id"
+          element={
+            <Suspense fallback={<Loader />}>
+              <ProductDetails />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/cart"
+          element={
+            <Suspense fallback={<Loader />}>
+              <Cart />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/checkout"
+          element={
+            <Suspense fallback={<Loader />}>
+              <Checkout />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/orders"
+          element={
+            <Suspense fallback={<Loader />}>
+              <MyOrders />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/success"
+          element={
+            <Suspense fallback={<Loader />}>
+              <Success />
+            </Suspense>
+          }
+        />
+
+        <Route
+          path="*"
+          element={
+            <Suspense fallback={<Loader />}>
+              <NotFound />
+            </Suspense>
+          }
+        />
       </Routes>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

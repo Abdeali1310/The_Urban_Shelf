@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import Masonry from "react-masonry-css";
 import { motion } from "framer-motion";
@@ -7,7 +7,16 @@ import Navbar from "./Navbar";
 import { useTheme } from "@/hooks/useTheme";
 import products from "@/data/products";
 
-const Products = () => {
+const categories = [
+  "all",
+  "shoes",
+  "bags",
+  "perfume",
+  "heels",
+  "watches",
+  "sunglasses",
+];
+const Products = React.memo(() => {
   const breakpointColumnsObj = {
     default: 4,
     1200: 3,
@@ -19,26 +28,28 @@ const Products = () => {
   const [activeCategory, setActiveCategory] = useState("all");
   const [showFilterModal, setShowFilterModal] = useState(false);
 
-  const categories = ["all", "shoes", "bags", "perfume", "heels", "watches", "sunglasses"];
+  
 
   useEffect(() => {
     document.body.style.overflow = showFilterModal ? "hidden" : "unset";
   }, [showFilterModal]);
 
-  const filteredProducts =
-    activeCategory === "all"
+  const filteredProducts = useMemo(() => {
+    return activeCategory === "all"
       ? products
       : products.filter((item) => item.category === activeCategory);
+  }, [activeCategory]);
 
   const closeModal = () => setShowFilterModal(false);
-
   return (
     <motion.div
       initial={{ scale: 1.2 }}
       animate={{ scale: 1 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
       className={`min-h-screen ${
-        theme === "light" ? "bg-[#FFFFF0] text-black" : "bg-black text-[#FFFFF0]"
+        theme === "light"
+          ? "bg-[#FFFFF0] text-black"
+          : "bg-black text-[#FFFFF0]"
       } px-4 lg:px-10 pt-2`}
     >
       <Navbar />
@@ -49,7 +60,9 @@ const Products = () => {
         <button
           onClick={() => setShowFilterModal(true)}
           className={`flex items-center gap-2 px-4 py-2 rounded-md  ${
-            theme === "light" ? "border border-zinc-800" : "border border-zinc-600"
+            theme === "light"
+              ? "border border-zinc-800"
+              : "border border-zinc-600"
           }`}
         >
           <FiFilter />
@@ -84,7 +97,7 @@ const Products = () => {
                   <div className="flex gap-1 items-center">
                     <span className="font-semibold">{item.rating}</span>
                     <span>★</span>
-                    </div>
+                  </div>
                 </div>
               </div>
             </Link>
@@ -94,13 +107,19 @@ const Products = () => {
 
       {/* Filter Side Modal */}
       {showFilterModal && (
-        <div className={`fixed top-0 right-0 h-full w-[300px] z-50 shadow-lg transition-all duration-300 ease-in-out ${
-        theme === "light" ? "bg-[#FFFFF0] text-black" : "bg-black text-[#FFFFF0]"
-      }`}>
+        <div
+          className={`fixed top-0 right-0 h-full w-[300px] z-50 shadow-lg transition-all duration-300 ease-in-out ${
+            theme === "light"
+              ? "bg-[#FFFFF0] text-black"
+              : "bg-black text-[#FFFFF0]"
+          }`}
+        >
           <div className="p-4 flex flex-col h-full">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-lg font-bold">Filter Categories</h2>
-              <button onClick={closeModal} className="text-2xl font-bold">×</button>
+              <button onClick={closeModal} className="text-2xl font-bold">
+                ×
+              </button>
             </div>
 
             <div className="flex flex-col gap-3">
@@ -130,6 +149,6 @@ const Products = () => {
       )}
     </motion.div>
   );
-};
+});
 
 export default Products;

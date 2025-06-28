@@ -3,8 +3,9 @@ import { type RootState } from "@/redux/store";
 import { GoArrowLeft } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@/hooks/useTheme";
+import React from "react";
 
-const MyOrders = () => {
+const MyOrders = React.memo(() => {
   const orders = useSelector((state: RootState) => state.orders.orders);
   const navigate = useNavigate();
   const { theme } = useTheme();
@@ -56,6 +57,6 @@ const MyOrders = () => {
       </div>
     </div>
   );
-};
+});
 
 export default MyOrders;

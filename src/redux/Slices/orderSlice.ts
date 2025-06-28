@@ -1,5 +1,3 @@
-// src/redux/Slices/orderSlice.ts
-
 import { createSlice,type PayloadAction } from "@reduxjs/toolkit";
 
 interface OrderItem {

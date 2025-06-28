@@ -46,11 +46,11 @@ export const cartSlice = createSlice({
           quantity: action.payload.quantity || 1,
         });
 
-        updateTotals(state);
       }
+      updateTotals(state);
     },
 
-    removeFromCart: (state, action) => {
+    removeFromCart: (state, action:PayloadAction<{id:string}>) => {
       state.items = state.items.filter((item) => item.id !== action.payload.id);
       updateTotals(state);
     },
@@ -60,7 +60,7 @@ export const cartSlice = createSlice({
       state.totalItems = 0;
       state.totalAmount = 0;
     },
-    increaseQuantity: (state, action) => {
+    increaseQuantity: (state, action:PayloadAction<{id:string}>) => {
       const existingItem = state.items.find(
         (item) => item.id === action.payload.id
       );
@@ -73,7 +73,7 @@ export const cartSlice = createSlice({
       }
       updateTotals(state);
     },
-    decreaseQuantity: (state, action) => {
+    decreaseQuantity: (state, action:PayloadAction<{id:string}>) => {
       const existingItem = state.items.find(
         (item) => item.id === action.payload.id
       );
