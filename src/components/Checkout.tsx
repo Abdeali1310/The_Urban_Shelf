@@ -56,7 +56,7 @@ const Checkout = React.memo(() => {
     }, 1000);
   };
   return cart.items.length > 0 ? (
-    <div
+    <main
       className={`flex  h-full overflow-y-scroll relative px-12 py-12 flex-col md:flex-row gap-5 ${
         theme === "light" ? "bg-[#FFFFF0] text-black" : "bg-black text-white"
       } pt-12  justify-center`}
@@ -67,44 +67,47 @@ const Checkout = React.memo(() => {
       >
         <GoArrowLeft />
       </button>
-      <div className="form flex flex-col lg:flex-row gap-6 w-full max-w-5xl mx-auto mt-32 lg:mt-16">
-        <div className="w-full lg:w-2/3">
+      <section className="form flex flex-col lg:flex-row gap-6 w-full max-w-5xl mx-auto mt-32 lg:mt-16">
+        <article className="w-full lg:w-2/3">
           <Form
             formData={formData}
             setFormData={setFormData}
             errors={errors}
             handleValidation={handleValidation}
           />
-        </div>
+        </article>
 
-        <div
+        <aside
           className={`pay  h-[350px] max-h-[400px] lg:w-1/3 p-6 rounded-lg border  ${
             theme === "dark"
               ? "bg-zinc-900 border-zinc-700"
               : "bg-[#ffffd7] border-zinc-200"
           }`}
         >
-          <h2 className="text-xl font-bold mb-4">Payment Summary</h2>
+          <header>
 
-          <div className="flex justify-between text-sm mb-2">
+          <h2 className="text-xl font-bold mb-4">Payment Summary</h2>
+          </header>
+
+          <article className="flex justify-between text-sm mb-2">
             <span>Subtotal</span>
             <span>₹{cart.totalAmount.toFixed(2)}K</span>
-          </div>
+          </article>
 
-          <div className="flex justify-between text-sm mb-2">
+          <article className="flex justify-between text-sm mb-2">
             <span>Shipping Charges</span>
             <span>₹1.2K</span>
-          </div>
+          </article>
 
-          <div className="flex justify-between text-sm mb-2">
+          <article className="flex justify-between text-sm mb-2">
             <span>Estimated Delivery</span>
             <span>4-5 Days</span>
-          </div>
+          </article>
 
-          <div className="flex justify-between text-lg font-semibold border-t pt-4 mt-4">
+          <article className="flex justify-between text-lg font-semibold border-t pt-4 mt-4">
             <span>Total</span>
             <span>₹{(cart.totalAmount + 1.2).toFixed(2)}K</span>
-          </div>
+          </article>
 
           <button
             onClick={handlePayNow}
@@ -116,11 +119,11 @@ const Checkout = React.memo(() => {
           >
             {isPaying ? "Processing..." : "Order now!"}
           </button>
-        </div>
-      </div>
-    </div>
+        </aside>
+      </section>
+    </main>
   ) : (
-    <div
+    <main
       className={`text-center pt-20 relative text-xl font-bold ${
         theme === "light" ? "bg-[#FFFFF0] text-black" : "bg-black text-white"
       } h-screen`}
@@ -132,7 +135,7 @@ const Checkout = React.memo(() => {
         <GoArrowLeft />
       </button>
       <h2>Your Cart is empty!</h2>
-    </div>
+    </main>
   );
 });
 

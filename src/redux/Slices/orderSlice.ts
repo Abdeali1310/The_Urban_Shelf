@@ -19,10 +19,16 @@ interface Order {
 interface OrderState {
   orders: Order[];
 }
-
-const initialState: OrderState = {
-  orders: [],
+const loadOrdersFromSession = (): OrderState => {
+  const data = sessionStorage.getItem("orders");
+  return data ? JSON.parse(data) : { orders: [] };
 };
+
+const saveOrdersToSession = (state: OrderState) => {
+  sessionStorage.setItem("orders", JSON.stringify(state));
+};
+
+const initialState: OrderState = loadOrdersFromSession();
 
 const orderSlice = createSlice({
   name: "orders",
@@ -30,6 +36,7 @@ const orderSlice = createSlice({
   reducers: {
     addOrder: (state, action: PayloadAction<Order>) => {
       state.orders.push(action.payload);
+      saveOrdersToSession(state);
     },
   },
 });

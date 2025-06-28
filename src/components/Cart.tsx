@@ -33,26 +33,28 @@ const Cart = React.memo(() => {
     [dispatch]
   );
   return cart.items.length > 0 ? (
-    <div
+    <main
       className={`min-h-screen relative py-10 px-4 md:px-10 ${
         theme === "light" ? "bg-[#FFFFF0] text-black" : "bg-black text-white"
       }`}
     >
-      <h1 className="text-3xl font-bold mb-8 text-center">Your Cart</h1>
-      <button
-        className="absolute top-5 md:top-15 left-5 md:left-15"
-        onClick={() => navigate(-1)}
-      >
-        <GoArrowLeft />
-      </button>
+      <header>
+        <h1 className="text-3xl font-bold mb-8 text-center">Your Cart</h1>
+        <button
+          className="absolute top-5 md:top-15 left-5 md:left-15"
+          onClick={() => navigate(-1)}
+        >
+          <GoArrowLeft />
+        </button>
+      </header>
 
-      <div
+      <section
         className={` px-4 py-8 ${
           theme === "light" ? "bg-[#FFFFF0] text-black" : "bg-black text-white"
         }`}
       >
         <div className="max-w-7xl mx-auto  flex flex-col items-start justify-center lg:flex-row gap-12">
-          <div className="w-full lg:w-2/3  flex  flex-col gap-6">
+          <section className="w-full lg:w-2/3  flex  flex-col gap-6">
             <table className="hidden lg:table w-full ">
               <thead className="h-16 text-center border-b">
                 <tr>
@@ -113,7 +115,7 @@ const Cart = React.memo(() => {
 
             {/* Mobile Cards */}
             {cart.items.map((item) => (
-              <div
+              <article
                 key={item.id}
                 className={`
                     flex flex-col md:flex-row gap-4 p-4 rounded-lg shadow-md
@@ -164,11 +166,11 @@ const Cart = React.memo(() => {
                     <FaTrash />
                   </button>
                 </div>
-              </div>
+              </article>
             ))}
-          </div>
+          </section>
 
-          <div
+          <aside
             className={`${
               theme === "dark" ? "border-zinc-700" : "border-zinc-300"
             } border w-full lg:w-1/3   rounded-lg p-6 shadow-sm`}
@@ -200,12 +202,12 @@ const Cart = React.memo(() => {
             >
               Checkout <RxArrowTopRight className="text-lg" />
             </button>
-          </div>
+          </aside>
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
   ) : (
-    <div
+    <main
       className={`text-center pt-20 relative text-xl font-bold ${
         theme === "light" ? "bg-[#FFFFF0] text-black" : "bg-black text-white"
       } h-screen`}
@@ -217,7 +219,7 @@ const Cart = React.memo(() => {
         <GoArrowLeft />
       </button>
       <h2>Your Cart is empty!</h2>
-    </div>
+    </main>
   );
 });
 
