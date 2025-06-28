@@ -26,4 +26,4 @@
 
 ## I'm totally open to feedback, your insights are more than welcome and greatly appreciated!
 
-# Live at https://the-urban-shelf.vercel.app/
+- Live at https://the-urban-shelf.vercel.app/
