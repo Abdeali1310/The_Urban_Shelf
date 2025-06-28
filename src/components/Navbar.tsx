@@ -22,7 +22,7 @@ const Navbar = React.memo(() => {
       <header>
         <nav className="flex justify-between md:justify-around px-4 md:px-6 pr-8 h-14 items-center  w-screen">
           <div className="brand font-montserrat font-bold text-xl text-zinc-400">
-            <button onClick={() => navigate("/")} aria-label="home page">Urban Vault</button>
+            <button onClick={() => navigate("/")} aria-label="home page">Urban Shelf</button>
           </div>
           <div className="nav-links hidden md:flex font-medium ">
             <ul className="flex gap-8">

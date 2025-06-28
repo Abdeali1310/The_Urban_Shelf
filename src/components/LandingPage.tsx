@@ -45,7 +45,7 @@ const LandingPage = React.memo(() => {
             className="text-zinc-400 hover:text-zinc-500 duration-200"
           >
             <h4 className="font-montserrat font-bold tracking-wider text-xl">
-              Urban Vault
+              Urban Shelf
             </h4>
           </Link>
 
