@@ -1,54 +1,29 @@
-# React + TypeScript + Vite
+# Urban Shelf – Shopping Cart
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+-  **Redux Toolkit** – Efficient state management for cart functionality and global state.
+-  **Framer Motion** – Smooth and elegant page transitions and animations.
+-  **Light/Dark Theme** – Theme toggling with `React Context API`, persisted using `sessionStorage`.
+-  **SessionStorage Integration** – Cart and order data persist across refreshes.
+-  **Accessibility Focused** – Semantic HTML, keyboard navigation, and ARIA attributes.
+-  **Performance Optimized** – Lazy loading, memoization, and efficient re-renders.
+-  **Responsive Design** – Works seamlessly on all screen sizes.
+-  **Modern UI/UX** – Clean and elegant design using modern layout and utility-first styling.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Tech Stack
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- **React.js** – Frontend library
+- **Redux Toolkit** – State management
+- **Framer Motion** – Animations
+- **React Context API** – Theme management
+- **SessionStorage** – State persistence
+- **Tailwind CSS / CSS Modules** – Styling (mention whichever you use)
+- **HTML5 Semantic Tags** – For accessibility and SEO
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## I'm totally open to feedback, your insights are more than welcome and greatly appreciated!
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+# Live at https://the-urban-shelf.vercel.app/
