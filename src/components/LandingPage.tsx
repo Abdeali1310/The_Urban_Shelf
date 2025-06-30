@@ -5,10 +5,10 @@ import React, { useRef, useState } from "react";
 import { useTheme } from "@/hooks/useTheme";
 
 const elements = [
-  { title: "Aero Max", imageSrc: "/images/shoes/aeromax.png" },
-  { title: "Dé Lemaire", imageSrc: "/images/watches/Dé Lemaire.png" },
-  { title: "La Flappe", imageSrc: "/images/bags/La Flappe.png" },
-  { title: "Velisse", imageSrc: "/images/heels/Valisse.png" },
+  { title: "Aero Max", imageSrc: "/images/shoes/aeromax.webp" },
+  { title: "Dé Lemaire", imageSrc: "/images/watches/Dé Lemaire.webp" },
+  { title: "La Flappe", imageSrc: "/images/bags/La Flappe.webp" },
+  { title: "Velisse", imageSrc: "/images/heels/Valisse.webp" },
 ];
 const LandingPage = React.memo(() => {
   const { theme, toggleTheme } = useTheme();

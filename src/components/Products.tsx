@@ -6,6 +6,7 @@ import { FiFilter } from "react-icons/fi";
 import Navbar from "./Navbar";
 import { useTheme } from "@/hooks/useTheme";
 import products from "@/data/products";
+import ShimmerImage from "@/helper/ShimmerImage";
 
 const categories = [
   "all",
@@ -87,11 +88,10 @@ const Products = React.memo(() => {
                 }`}
               >
                 <Link to={`/products/${item.id}`}>
-                  <img
-                    src={item.imageSrc}
+                  
+                  <ShimmerImage src={item.imageSrc}
                     alt={item.title}
-                    className="w-full rounded-t-md"
-                  />
+                    className="w-full rounded-t-md" />
                   <div className="mt-2 flex flex-col gap-1 text-center px-3 pb-4">
                     <p className="text-zinc-400">{item.brand}</p>
                     <p className="text-lg font-semibold">{item.title}</p>

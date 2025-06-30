@@ -10,6 +10,7 @@ import { addToCart } from "@/redux/Slices/cartSlice";
 import type { RootState } from "@/redux/store";
 import { GoArrowLeft } from "react-icons/go";
 import Loader from "@/helper/Loader";
+import ShimmerImage from "@/helper/ShimmerImage";
 
 const ProductDetails = React.memo(() => {
   const { id } = useParams<{ id: string }>();
@@ -19,6 +20,7 @@ const ProductDetails = React.memo(() => {
   const cart = useSelector((state: RootState) => state.cart);
 
   const [isAdded, setIsAdded] = useState(false);
+
   const productId = id ? parseInt(id) : null;
 
   const product: ProductType | null = useMemo(() => {
@@ -70,11 +72,13 @@ const ProductDetails = React.memo(() => {
         <section>
           <div className="relative flex flex-col md:flex-row gap-12 items-center max-w-6xl w-full">
             <article className="relative w-full md:w-1/2 flex items-start justify-center">
-              <img
-                className="h-[50vh] object-contain"
+              <ShimmerImage
                 src={product.imageSrc}
                 alt={product.title}
+                className="object-contain rounded-md"
+                heightClass="h-[50vh]"
               />
+
               {product.bestseller && (
                 <span className="absolute top-0 left-0 bg-zinc-600 text-white text-[10px] px-6 py-1 rounded-br-lg rounded-tl-md transform shadow-md">
                   Bestseller
