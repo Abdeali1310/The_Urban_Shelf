@@ -21,9 +21,9 @@
 - **Framer Motion** – Animations
 - **React Context API** – Theme management
 - **SessionStorage** – State persistence
-- **Tailwind CSS / CSS Modules** – Styling (mention whichever you use)
-- **HTML5 Semantic Tags** – For accessibility and SEO
+- **Tailwind CSS - Layout and design
+- **Semantic Tags** – For accessibility and SEO
 
 ## I'm totally open to feedback, your insights are more than welcome and greatly appreciated!
 
-- Live at https://the-urban-shelf.vercel.app/
+- Live at https://the-urban-shelf.netlify.app/
