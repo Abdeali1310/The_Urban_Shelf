@@ -21,7 +21,7 @@
 - **Framer Motion** – Animations
 - **React Context API** – Theme management
 - **SessionStorage** – State persistence
-- **Tailwind CSS - Layout and design
+- **Tailwind CSS** - Layout and design
 - **Semantic Tags** – For accessibility and SEO
 
 ## I'm totally open to feedback, your insights are more than welcome and greatly appreciated!
